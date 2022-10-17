@@ -1,0 +1,198 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+ul,
+ol {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+address {
+  font-style: normal;
+}
+
+@keyframes delete {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.main {
+  padding: 100px 20px 100px;
+}
+.main__wrapper {
+  flex-grow: 1;
+  max-width: 570px;
+}
+
+.container {
+  display: flex;
+  max-width: 800px;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.form__item {
+  margin-bottom: 10px;
+}
+.form__btn {
+  border: none;
+  display: block;
+  width: 50%;
+  padding: 10px 0 10px;
+  background-color: #d9e8ff;
+  color: black;
+  font-size: 18px;
+  margin: 0 auto 30px;
+}
+
+.blockBA {
+  display: none;
+}
+
+.blockBA.active {
+  display: block !important;
+}
+
+input {
+  width: 100%;
+  border: none;
+  padding: 16px 10px 16px;
+  border: 2px solid #f6f6f6;
+}
+
+select {
+  bottom: none;
+}
+
+.select__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 25px 0;
+}
+
+.add-btn {
+  font-size: 14px;
+  width: 25%;
+  background-color: #fed74b;
+  padding: 5px;
+  margin: 0;
+  border-radius: 7px;
+  color: black;
+}
+
+.bucket {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  max-width: 180px;
+}
+.bucket__item {
+  display: flex;
+  padding: 10px 5px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #c6d6ef;
+  opacity: 1;
+  animation: appear 0.5s;
+  min-height: fit-content;
+  border-radius: 6px;
+}
+.bucket__item--deleted {
+  opacity: 0;
+  animation: delete 0.5s;
+}
+.bucket__inner {
+  display: flex;
+  flex-direction: column;
+}
+.bucket__btn {
+  border: none;
+  background-color: #a51321;
+  padding: 3px 6px;
+  border-radius: 3px;
+  color: white;
+  padding: 7px 4px;
+  font-size: 13px;
+}
+.bucket__where {
+  font-size: 10px;
+  max-width: 100px;
+  font-weight: 700;
+}
+
+/* .nice-select.blockAB{
+  display: none ;
+} */

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="form-styler/nice-select.css">
+
+    <title>Trip</title>
+</head>
+
+<body>
+    <main class="main">
+        <div class="container">
+            <div class="main__wrapper">
+                <form class="form">
+                    <!-- пользователь выбирает направление маршрута -->
+                    <input class="form__item" type="email" placeholder="введите EMAIL" />
+                    <input class="form__item" type="text" placeholder="ваше имя" />
+
+                    <div class="select__wrapper from__item">
+                        <select class="route" name="route">
+                            <option value="из A в B" data-aba="ab">из A в B</option>
+                            <option value="из B в A" data-aba="ba">из B в A</option>
+                            <option value="из A в B и обратно в А" data-aba="aba">
+                                из A в B и обратно в А
+                            </option>
+                        </select>
+
+                        <!-- пользователь выбирает время -->
+
+                        <div class="blockAB form__item">
+                            1
+                            <label>
+                                <select class="timesAB"></select>
+                            </label>
+                        </div>
+                        <div class="blockBA form__item">
+                            2
+                            <label>
+                                <select class="timesBA"></select>
+                            </label>
+                        </div>
+                        <button class="form__btn add-btn">добавить билет</button>
+                    </div>
+                    <button class="form__btn" type="submit">отправить</button>
+                </form>
+
+                <!-- вывод информации -->
+                <div class="info"></div>
+            </div>
+            <ul class="bucket">
+               <!--  <li class="bucket__item">
+                
+                    <button class="bucket__btn">удалить</button>
+                </li> -->
+            </ul>
+        </div>
+    </main>
+
+    <script src="./jquery.js"></script>
+    <script src="form-styler/jquery.nice-select.js"></script>
+    <script src="./index.js"></script>
+   
+</body>
+
+</html>
