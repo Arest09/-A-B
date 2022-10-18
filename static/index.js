@@ -85,7 +85,7 @@ function tripBack(e) {
         baRoute.style.display = "block";
     } else {
         baRoute.style.display = "none";
-        /*   document.querySelector(".nice-select.blockAB").style.display = "none"; */
+       
     }
 }
 
@@ -117,7 +117,7 @@ function filterTime(date) {
     let lowLimitDate = new Date(`2022-08-21 ${date.hours}:${date.minutes}:00`);
     let lowLimitHour = lowLimitDate.getHours();
     let lowLimitMinute = lowLimitDate.getMinutes();
-    console.log(lowLimitHour, lowLimitMinute);
+
 
     optionsBA.forEach((option) => {
         let optionBAdate = new Date(Number(option.value));
@@ -126,7 +126,7 @@ function filterTime(date) {
 
         if (optionBAdate.getHours() < lowLimitHour) {
             option.setAttribute("disabled", "disabled");
-            option.style.display = "none";
+         
         } else if (optionBAdate.getHours() == lowLimitHour &&optionBAdate.getMinutes() < lowLimitMinute) {
             option.setAttribute("disabled", "disabled");
             
@@ -142,32 +142,51 @@ let tripInfo = {
     where: "",
 };
 
+
+selectAB.addEventListener('click',clearSelectBa)
+ 
+
+function clearSelectBa() {
+    selectBa.options[0].selected = 'selected'
+}
+
 document.querySelector(".select__wrapper ").addEventListener("click", (e) => {
-   
     if (e.target.closest(".add-btn")) {
-        if (!selectBa.value) {
-            alert('выберите время отбытия')
-        }
-        else{
+      
             if (selectRoute.value == "из A в B") {
-                tripInfo["count"] = tripInfo["count"] + 1;
-                tripInfo["cost"] = costAB;
-                tripInfo["where"] = "из A в B";
-                bucket(tripInfo);
+                if (selectAB.value == '') {
+                    alert('выберите время')
+                }
+                else{
+                    tripInfo["count"] = tripInfo["count"] + 1;
+                    tripInfo["cost"] = costAB;
+                    tripInfo["where"] = "из A в B";
+                    bucket(tripInfo);
+                }
+              
             } else if (selectRoute.value == "из A в B и обратно в А") {
-                tripInfo["count"] = tripInfo["count"] + 1;
-                tripInfo["cost"] = costABA;
-                tripInfo["where"] = "из A в B и обратно в А";
-                bucket(tripInfo);
+                if (selectBa.value == '' ||selectAB.value == '' ) {
+                    alert('выберите время отправки')
+                }
+                else{
+                    tripInfo["count"] = tripInfo["count"] + 1;
+                    tripInfo["cost"] = costABA;
+                    tripInfo["where"] = "из A в B и обратно в А";
+                    bucket(tripInfo);
+                }
+              
             } else {
-                tripInfo["count"] = tripInfo["count"] + 1;
-                tripInfo["cost"] = costAB;
-                tripInfo["where"] = "из B в A";
-                bucket(tripInfo);
+                if (selectBa.value == '') {
+                    alert('выберите время')
+                }
+                else{
+                    tripInfo["count"] = tripInfo["count"] + 1;
+                    tripInfo["cost"] = costAB;
+                    tripInfo["where"] = "из B в A";
+                    bucket(tripInfo);
+                }
             }
         }
-       
-    }
 });
 
 function bucket(tripInfo) {
@@ -282,4 +301,3 @@ document
     .querySelector('.form__btn[type="submit"]')
     .addEventListener("click", sendData);
 
-console.log(document.querySelector('.form__item[name= "name"]'));
