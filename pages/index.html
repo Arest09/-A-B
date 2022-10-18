@@ -25,9 +25,9 @@
 
                     <div class="select__wrapper from__item">
                         <select class="route" name="route">
-                            <option value="из A в B" data-aba="ab">из A в B</option>
-                            <option value="из B в A" data-aba="ba">из B в A</option>
-                            <option value="из A в B и обратно в А" data-aba="aba">
+                            <option value="из A в B" class="ab">из A в B</option>
+                            <option value="из B в A" class="ba">из B в A</option>
+                            <option value="из A в B и обратно в А" class="aba">
                                 из A в B и обратно в А
                             </option>
                         </select>
@@ -52,7 +52,10 @@
                 </form>
 
                 <!-- вывод информации -->
-                <div class="info"></div>
+                <div class="info">
+                    <div class="info__total-cost"></div>
+                    <div class="info__total-count"></div>
+                </div>
             </div>
             <ul class="bucket">
                <!--  <li class="bucket__item">

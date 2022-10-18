@@ -87,6 +87,22 @@ address {
     opacity: 1;
   }
 }
+@keyframes info-appear {
+  0% {
+    transform: translateY(-300%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+@keyframes info-disappear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 .main {
   padding: 100px 20px 100px;
 }
@@ -193,6 +209,16 @@ select {
   font-weight: 700;
 }
 
-/* .nice-select.blockAB{
-  display: none ;
-} */
+.info {
+  max-width: 300px;
+  opacity: 0;
+  margin: 0 auto;
+  text-align-last: left;
+  animation: info-disappear 0.5s;
+}
+
+.info.active {
+  animation: info-appear 0.5s;
+  display: block;
+  opacity: 1;
+}

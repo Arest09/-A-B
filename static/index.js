@@ -5,12 +5,6 @@
 /* "из A в B" и "из B в A" стоимость одного билета 700р.
 "из A в B и обратно в А" стоимость составного билета 1200р */
 
-/* $(function() {
-    $('.blockAB ').niceSelect();
-    $('.blockBA ').niceSelect();
-    $('.route ').niceSelect();
-}); */
-
 const timeTravel = 50;
 const costAB = 700;
 const costABA = 1200;
@@ -19,13 +13,14 @@ const form = document.querySelector(".form");
 const selectRoute = document.querySelector(".route");
 const selectAB = document.querySelector(".timesAB");
 
-const abaRoute = document.querySelector("[data-aba]");
-const abRoute = document.querySelector(".blockAB");
+/* const abaRoute = document.querySelector("[data-aba]"); */
+/* const abRoute = document.querySelector(".blockAB"); */
 const baRoute = document.querySelector(".blockBA");
 
 const selectBa = document.querySelector(".timesBA");
 
-const info = document.querySelector('.info')
+const infoCost = document.querySelector('.info__total-cost')
+const infoCount = document.querySelector('.info__total-count')
 
 //////
 const timesAB = `
@@ -87,7 +82,6 @@ form.addEventListener("submit", (e) => {
 
 selectRoute.addEventListener("change", tripBack);
 
-console.log(document.querySelector(".nice-select.blockAB"));
 
 function tripBack(e) {
     if (selectRoute.value === "из A в B и обратно в А") {
@@ -100,19 +94,22 @@ function tripBack(e) {
 
 selectAB.addEventListener("change", tripBackTime);
 
-function tripBackTime(e) {
+
+
+
+
+function tripBackTime() {
     let hours = new Date(Number(selectAB.value)).getHours();
     let minutes = new Date(Number(selectAB.value)).getMinutes();
-
+    
     let date = {
         hours: hours,
         minutes: 0,
     };
-
     let Newminutes = minutes + timeTravel;
     let newHour = 0;
     if (Newminutes > 60) {
-        newHour = Math.trunc(80 / 60);
+        newHour = Math.trunc(Newminutes / 60);
         Newminutes = Newminutes % 60;
     }
     date.minutes = Newminutes;
@@ -176,29 +173,72 @@ document.querySelector(".select__wrapper ").addEventListener("click", (e) => {
 
 function bucket(tripInfo) {
     const bucketList = document.querySelector(".bucket");
-    bucketList.innerHTML += `<li class="bucket__item">
-    <div class="bucket__inner">
-    <div class="bucket__cost"> ${tripInfo.cost}</div>
-    <div class="bucket__where"> ${tripInfo.where}</div>
-    </div>
-    <button class="bucket__btn">удалить</button>
-   </li> `;
+    const dispatchHour = new Date(Number(selectAB.value)).getHours();
+    const dispatchMinute = oo( new Date(Number(selectAB.value)).getMinutes());
+    let arrivalHour = dispatchHour;
+    let arrivalMin =  Number(dispatchMinute) + timeTravel;
+
+//расчет врмени когда пользователь вернется
+    const timeBackHour = new Date(Number(selectBa.value)).getHours();
+    const timeBackMinute = oo( new Date(Number(selectBa.value)).getMinutes());
+    let arrTimeBackHour = timeBackHour;
+    let arrTimeBackMinute = Number(timeBackMinute) + timeTravel;
+
+    if (arrivalMin > 60) {
+        arrivalHour = Math.trunc(Number(arrivalMin) / 60) + arrivalHour;
+        arrivalMin = oo(arrivalMin % 60);
+    }
+
+    if (arrTimeBackMinute > 60) {
+        arrTimeBackHour = Math.trunc(Number(arrTimeBackMinute) / 60) + arrTimeBackHour;
+        arrTimeBackMinute = oo(arrTimeBackMinute % 60);
+    }
+   
+   
+    if ((selectRoute.value == 'из A в B') || (selectRoute.value == 'из B в A')) {
+        bucketList.innerHTML += `<li class="bucket__item">
+        <div class="bucket__inner">
+        <div class="bucket__cost"> ${tripInfo.cost}</div>
+        <div class="bucket__where"> ${tripInfo.where}</div>
+        <div class="bucket__dispatch">${dispatchHour}:${dispatchMinute} - ${arrivalHour}:${arrivalMin}</div>
+        </div>
+        <button class="bucket__btn">удалить</button>
+       </li> `;
+    }
+    else{
+        bucketList.innerHTML += `<li class="bucket__item">
+        <div class="bucket__inner">
+        <div class="bucket__cost"> ${tripInfo.cost}</div>
+        <div class="bucket__where"> ${tripInfo.where}</div>
+        <div class="bucket__dispatch">${dispatchHour}:${dispatchMinute} - ${arrivalHour}:${arrivalMin}</div>
+        <div class="bucket__dispatch">${timeBackHour}:${timeBackMinute} - ${arrTimeBackHour}:${arrTimeBackMinute}</div>
+        </div>
+        <button class="bucket__btn">удалить</button>
+       </li> `;
+    }
+
+   
+
    const tickets = Array.from(document.querySelectorAll(".bucket__item"));
-    console.log(tickets)
+   
     insertInfo(tickets)
+    saveLocalStorage(tickets)
 }
 
 
-///i am here
+///was here
 function insertInfo(tickets) {
     let sum = 0;
     tickets.forEach((ticket)=>{
        sum += Number( ticket.querySelector('.bucket__cost').textContent)
     })
-    info.innerText = `${sum},${tickets.length}`;
+    infoCost.innerText = `Общая стоимость билетов : ${sum}`;
+    infoCount.innerText = `Количество билетов : ${tickets.length}`;
+
+    document.querySelector('.info').classList.add('active')
 }
 
-///
+///i am here
 document.querySelector(".bucket").addEventListener("click", deleteFromBucket);
 
 function deleteFromBucket(e) {
@@ -215,5 +255,15 @@ function deleteFromBucket(e) {
     })
     
      insertInfo(tickets) 
+     saveLocalStorage(tickets)
+     if (!tickets.length) {
+        document.querySelector('.info').classList.remove('active')
+     }
+     
   
+}
+
+function saveLocalStorage(tickets) {//доделать
+
+    console.log(tickets)
 }
