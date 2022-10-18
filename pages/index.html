@@ -23,7 +23,7 @@
                     <input class="form__item" type="email" name="email" placeholder="введите EMAIL" />
                     <input class="form__item" type="text" name="name" placeholder="ваше имя" />
 
-                    <div class="select__wrapper from__item">
+                    <div class="select__wrapper from__item" required>
                         <select class="route" name="route">
                             <option value="из A в B" class="ab">из A в B</option>
                             <option value="из B в A" class="ba">из B в A</option>
@@ -37,13 +37,17 @@
                         <div class="blockAB form__item">
                             1
                             <label>
-                                <select class="timesAB"></select>
+                                <select class="timesAB" required>
+                                    <option value=""></option>
+                                </select>
                             </label>
                         </div>
                         <div class="blockBA form__item">
                             2
                             <label>
-                                <select class="timesBA"></select>
+                                <select class="timesBA" required>
+                                    <option value=""></option>
+                                </select>
                             </label>
                         </div>
                         <button class="form__btn add-btn">добавить билет</button>
@@ -67,8 +71,6 @@
         </div>
     </main>
 
-    <script src="./jquery.js"></script>
-    <script src="form-styler/jquery.nice-select.js"></script>
     <script src="./index.js"></script>
    
 </body>

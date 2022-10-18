@@ -1,0 +1,61 @@
+@media (max-width: 805px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .info.active {
+        margin-bottom: 25px;
+    }
+
+    .form__item::placeholder {
+        font-size: 13px;
+    }
+
+    input {
+        padding: 12px 8px 12px;
+    }
+
+    .form__btn {
+        font-size: 13px;
+        width: 30%;
+    }
+    
+    .bucket{
+        width: 100%;
+        max-width: 220px;
+       
+        &__item {
+            font-size: 13px;
+            justify-content: space-evenly;
+        }
+
+        &__inner{
+            flex-direction: row;
+            flex-grow: 1;
+            justify-content: space-around;
+            align-items: center;
+        }
+        &__btn{
+            font-size: 10px;
+        }
+    }
+
+    
+}
+
+@media (max-width: 480px) {
+    .select {
+        &__wrapper {
+            flex-direction: column;
+            align-items: center;
+            min-height: 160px;
+            justify-content: space-around;
+        }
+    }
+
+    .bucket_btn {
+        padding: 4px 4px;
+        font-size: 10px;
+    }
+}
