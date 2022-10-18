@@ -18,10 +18,10 @@
     <main class="main">
         <div class="container">
             <div class="main__wrapper">
-                <form class="form">
+                <form class="form" method="POST" action="/">
                     <!-- пользователь выбирает направление маршрута -->
-                    <input class="form__item" type="email" placeholder="введите EMAIL" />
-                    <input class="form__item" type="text" placeholder="ваше имя" />
+                    <input class="form__item" type="email" name="email" placeholder="введите EMAIL" />
+                    <input class="form__item" type="text" name="name" placeholder="ваше имя" />
 
                     <div class="select__wrapper from__item">
                         <select class="route" name="route">
@@ -49,6 +49,7 @@
                         <button class="form__btn add-btn">добавить билет</button>
                     </div>
                     <button class="form__btn" type="submit">отправить</button>
+                    <div class="warning">выключите VPN перед отправкой *</div>
                 </form>
 
                 <!-- вывод информации -->

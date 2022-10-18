@@ -80,6 +80,7 @@ form.addEventListener("submit", (e) => {
     e.preventDefault();
 });
 
+
 selectRoute.addEventListener("change", tripBack);
 
 
@@ -88,7 +89,7 @@ function tripBack(e) {
         baRoute.style.display = "block";
     } else {
         baRoute.style.display = "none";
-      /*   document.querySelector(".nice-select.blockAB").style.display = "none"; */
+        /*   document.querySelector(".nice-select.blockAB").style.display = "none"; */
     }
 }
 
@@ -101,7 +102,7 @@ selectAB.addEventListener("change", tripBackTime);
 function tripBackTime() {
     let hours = new Date(Number(selectAB.value)).getHours();
     let minutes = new Date(Number(selectAB.value)).getMinutes();
-    
+
     let date = {
         hours: hours,
         minutes: 0,
@@ -174,13 +175,13 @@ document.querySelector(".select__wrapper ").addEventListener("click", (e) => {
 function bucket(tripInfo) {
     const bucketList = document.querySelector(".bucket");
     const dispatchHour = new Date(Number(selectAB.value)).getHours();
-    const dispatchMinute = oo( new Date(Number(selectAB.value)).getMinutes());
+    const dispatchMinute = oo(new Date(Number(selectAB.value)).getMinutes());
     let arrivalHour = dispatchHour;
-    let arrivalMin =  Number(dispatchMinute) + timeTravel;
+    let arrivalMin = Number(dispatchMinute) + timeTravel;
 
-//расчет врмени когда пользователь вернется
+    //расчет врмени когда пользователь вернется
     const timeBackHour = new Date(Number(selectBa.value)).getHours();
-    const timeBackMinute = oo( new Date(Number(selectBa.value)).getMinutes());
+    const timeBackMinute = oo(new Date(Number(selectBa.value)).getMinutes());
     let arrTimeBackHour = timeBackHour;
     let arrTimeBackMinute = Number(timeBackMinute) + timeTravel;
 
@@ -193,8 +194,8 @@ function bucket(tripInfo) {
         arrTimeBackHour = Math.trunc(Number(arrTimeBackMinute) / 60) + arrTimeBackHour;
         arrTimeBackMinute = oo(arrTimeBackMinute % 60);
     }
-   
-   
+
+
     if ((selectRoute.value == 'из A в B') || (selectRoute.value == 'из B в A')) {
         bucketList.innerHTML += `<li class="bucket__item">
         <div class="bucket__inner">
@@ -204,8 +205,7 @@ function bucket(tripInfo) {
         </div>
         <button class="bucket__btn">удалить</button>
        </li> `;
-    }
-    else{
+    } else {
         bucketList.innerHTML += `<li class="bucket__item">
         <div class="bucket__inner">
         <div class="bucket__cost"> ${tripInfo.cost}</div>
@@ -217,20 +217,19 @@ function bucket(tripInfo) {
        </li> `;
     }
 
-   
 
-   const tickets = Array.from(document.querySelectorAll(".bucket__item"));
-   
+
+    const tickets = Array.from(document.querySelectorAll(".bucket__item"));
+
     insertInfo(tickets)
-    saveLocalStorage(tickets)
 }
 
 
 ///was here
 function insertInfo(tickets) {
     let sum = 0;
-    tickets.forEach((ticket)=>{
-       sum += Number( ticket.querySelector('.bucket__cost').textContent)
+    tickets.forEach((ticket) => {
+        sum += Number(ticket.querySelector('.bucket__cost').textContent)
     })
     infoCost.innerText = `Общая стоимость билетов : ${sum}`;
     infoCount.innerText = `Количество билетов : ${tickets.length}`;
@@ -242,7 +241,7 @@ function insertInfo(tickets) {
 document.querySelector(".bucket").addEventListener("click", deleteFromBucket);
 
 function deleteFromBucket(e) {
-  
+
     if (e.target.closest(".bucket__btn")) {
         let li = e.target.closest(".bucket__item");
         li.classList.add("bucket__item--deleted");
@@ -250,20 +249,37 @@ function deleteFromBucket(e) {
             li.remove();
         }, 500);
     }
-    const tickets = Array.from(document.querySelectorAll(".bucket__item")).filter((ticket)=>{
+    const tickets = Array.from(document.querySelectorAll(".bucket__item")).filter((ticket) => {
         return !ticket.classList.contains('bucket__item--deleted')
     })
-    
-     insertInfo(tickets) 
-     saveLocalStorage(tickets)
-     if (!tickets.length) {
+
+    insertInfo(tickets)
+    if (!tickets.length) {
         document.querySelector('.info').classList.remove('active')
-     }
-     
-  
+    }
+
+
 }
 
-function saveLocalStorage(tickets) {//доделать
-
-    console.log(tickets)
+///отправляю информацию на сервер
+async function sendData() {
+   const body = {
+        name:document.querySelector('.form__item[name= "name"]').value,
+        email:document.querySelector('.form__item[name= "email"]').value,
+        cost:document.querySelector('.info__total-cost').textContent,
+        count:document.querySelector('.info__total-count').textContent,
+    }
+    const res = await fetch('/', {
+        method: 'POST',           
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    })
+  alert('информация о билетах отправлена на почту')
+    
 }
+
+document.querySelector('.form__btn[type="submit"]').addEventListener('click', sendData)
+
+console.log(document.querySelector('.form__item[name= "name"]'))

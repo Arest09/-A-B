@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require ('express');
 const tripRoute = require ('./routes/trip-route')
 
