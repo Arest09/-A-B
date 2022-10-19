@@ -1,5 +1,6 @@
 "use strict";
 
+
 /* Время пути в одну сторону 50 минут. */
 
 /* "из A в B" и "из B в A" стоимость одного билета 700р.
@@ -40,15 +41,47 @@ const timesBA = `
   2022-08-21T21:55:00
 `;
 
+
+/////local time
+function geoLocation() {
+    let geolocation = navigator.geolocation;
+    
+    return new Promise((resolve,reject)=>{
+        geolocation.getCurrentPosition(async (pos) => {
+            let lat = pos.coords.latitude;
+            let lon = pos.coords.longitude;
+            resolve({lat,lon})
+        })
+    })
+}
+
+async function getLocalTIme() {
+ const {lat,lon} =  await geoLocation();
+const res =  await  fetch(`https://api.ipgeolocation.io/timezone?apiKey=b8d35f2579674b97ad705cd583b1de1c&lat=${lat}&long=${lon}`)
+return await res.json()
+    
+}
+
+getLocalTIme().then((data)=>{
+    let tz = data.timezone_offset
+    console.log(data)
+
+
+
 const parseTimes = (times) => {
     return times
         .trim()
         .split("\n")
-        .map((str) => new Date(str.trim()));
+        .map((str) => {
+            return moment(str.trim()).utcOffset(tz)._d;
+        });
 };
 //получаем дату
 const datesAB = parseTimes(timesAB);
 const datesBA = parseTimes(timesBA);
+
+
+
 
 const el = Object.fromEntries(
     ["route", "timesAB", "timesBA", "blockAB", "blockBA", "info"].map(
@@ -92,6 +125,7 @@ function tripBack(e) {
 selectAB.addEventListener("change", tripBackTime);
 
 function tripBackTime() {
+  
     let hours = new Date(Number(selectAB.value)).getHours();
     let minutes = new Date(Number(selectAB.value)).getMinutes();
 
@@ -176,8 +210,9 @@ document.querySelector(".select__wrapper ").addEventListener("click", (e) => {
                 }
               
             } else {
-                if (selectBa.value == '') {
+                if (selectAB.value == '') {
                     alert('выберите время')
+                    console.log('lame')
                 }
                 else{
                     tripInfo["count"] = tripInfo["count"] + 1;
@@ -301,3 +336,5 @@ document
     .querySelector('.form__btn[type="submit"]')
     .addEventListener("click", sendData);
 
+   
+})

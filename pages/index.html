@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="form-styler/nice-select.css">
 
     <title>Trip</title>
 </head>
@@ -20,8 +19,8 @@
             <div class="main__wrapper">
                 <form class="form" method="POST" action="/">
                     <!-- пользователь выбирает направление маршрута -->
-                    <input class="form__item" type="email" name="email" placeholder="введите EMAIL" />
-                    <input class="form__item" type="text" name="name" placeholder="ваше имя" />
+                    <input class="form__item" required type="email" name="email" placeholder="введите EMAIL" />
+                    <input class="form__item"  required type="text" name="name" placeholder="ваше имя" />
 
                     <div class="select__wrapper from__item" required>
                         <select class="route" name="route">
@@ -71,8 +70,12 @@
         </div>
     </main>
 
+
+  <!--   <script src="./moment.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+  <script src="https://moment.github.io/luxon/global/luxon.min.js"></script>
     <script src="./index.js"></script>
-   
+
 </body>
 
 </html>
