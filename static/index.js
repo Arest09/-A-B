@@ -350,7 +350,7 @@ async function sendData() {
             document.querySelector('.form__error').textContent = 'введите корректный email'
         }
         // проверка имени
-        else if (!document.querySelector('.form__item[name= "name"]').textContent) {
+        else if (!document.querySelector('.form__item[name= "name"]').value) {
             document.querySelector('.form__name-error').classList.add('active')
             document.querySelector('.form__name-error').textContent = 'введите ваше имя'
         } else {
