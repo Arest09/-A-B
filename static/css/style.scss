@@ -88,8 +88,6 @@ input {
   border: 2px solid #f6f6f6;
 }
 
-
-
 .select {
   &__wrapper {
     display: flex;
@@ -132,11 +130,13 @@ input {
     opacity: 0;
     animation: delete 0.5s;
   }
-  &__inner{
+
+  &__inner {
     display: flex;
     flex-direction: column;
   }
-  &__btn{
+
+  &__btn {
     border: none;
     background-color: #a51321;
     padding: 3px 6px;
@@ -146,22 +146,22 @@ input {
     font-size: 13px;
   }
 
-  &__where{
+  &__where {
     font-size: 10px;
     max-width: 100px;
     font-weight: 700;
   }
 }
 
-.info{
+.info {
   max-width: 300px;
   opacity: 0;
   margin: 0 auto;
   text-align-last: left;
   animation: info-disappear 0.5s;
-  
 }
-.info.active{
+
+.info.active {
   animation: info-appear 0.5s;
   opacity: 1;
   display: flex;
@@ -170,11 +170,23 @@ input {
   justify-content: center;
 }
 
-.warning{
+.error,
+.warning {
   color: #a51321;
   font-size: 10px;
   text-align: center;
   margin-bottom: 15px;
 }
 
-@import './media'
+.error {
+  margin-bottom: 6px;
+
+  opacity: 0;
+}
+
+.error.active {
+  opacity: 1;
+  animation: appear 1.3s;
+}
+
+@import "./media";

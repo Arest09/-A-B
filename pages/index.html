@@ -19,10 +19,11 @@
             <div class="main__wrapper">
                 <form class="form" method="POST" action="/">
                     <!-- пользователь выбирает направление маршрута -->
-                    <input class="form__item" required type="email" name="email" placeholder="введите EMAIL" />
-                    <input class="form__item"  required type="text" name="name" placeholder="ваше имя" />
-
-                    <div class="select__wrapper from__item" required>
+                    <input class="form__item" type="text" name="email" placeholder="введите EMAIL" />
+                    <div class="form__error error"></div>
+                    <input class="form__item" type="text" name="name" placeholder="ваше имя" />
+                    <div class="form__name-error error"></div>
+                    <div class="select__wrapper from__item">
                         <select class="route" name="route">
                             <option value="из A в B" class="ab">из A в B</option>
                             <option value="из B в A" class="ba">из B в A</option>
@@ -61,21 +62,15 @@
                     <div class="info__total-count"></div>
                 </div>
             </div>
-            <ul class="bucket">
-               <!--  <li class="bucket__item">
-                
-                    <button class="bucket__btn">удалить</button>
-                </li> -->
-            </ul>
+            <ul class="bucket"></ul>
         </div>
     </main>
 
-
-  <!--   <script src="./moment.min.js"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-  <script src="https://moment.github.io/luxon/global/luxon.min.js"></script>
+    <!--   <script src="./moment.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://moment.github.io/luxon/global/luxon.min.js"></script>
+    <script src="./validator/validator.min.js"></script>
     <script src="./index.js"></script>
-
 </body>
 
 </html>

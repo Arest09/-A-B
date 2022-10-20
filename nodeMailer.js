@@ -6,8 +6,8 @@ const transporter = nodemailer.createTransport(
         port: 465,
         secure: true, // true for 465, false for other ports
         auth: {
-           // Пожалуйста, используйте свой собственный аккаунт для рассылки
-            user:process.env.MAIL_USER, // (замените звездочики на название вашего почтового ящика)
+            
+            user:process.env.MAIL_USER,
             pass:process.env.MAIL_PASW 
         }
     }

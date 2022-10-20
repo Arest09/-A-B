@@ -11,11 +11,12 @@ const trip_post = (req, res) => {
   res.status(200).json(req.body);
   console.log(req.body);
 
+  // отправляю mail пользователю
   const message = {
     from: "arest09@mail.ru <arest09@mail.ru>", // sender address
     to:`${email}`,
     subject:'Nevatrip',
-    text:`Здравствуйте,${name},${cost}рублей;${count}`,
+    text:`Здравствуйте,${name},${cost},${count}`,
   }
   mailer(message)
 };

@@ -222,11 +222,22 @@ input {
   justify-content: center;
 }
 
+.error,
 .warning {
   color: #a51321;
   font-size: 10px;
   text-align: center;
   margin-bottom: 15px;
+}
+
+.error {
+  margin-bottom: 6px;
+  opacity: 0;
+}
+
+.error.active {
+  opacity: 1;
+  animation: appear 1.3s;
 }
 
 @media (max-width: 805px) {
