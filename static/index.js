@@ -21,7 +21,7 @@ const selectBa = document.querySelector(".timesBA");
 const infoCost = document.querySelector(".info__total-cost");
 const infoCount = document.querySelector(".info__total-count");
 
-//////
+//////время
 const timesAB = `
   2022-08-21T18:00:00
   2022-08-21T18:30:00
@@ -44,12 +44,14 @@ const timesBA = `
 
 /////получение геопозиции пользователя
 function geoLocation() {
+ 
     let geolocation = navigator.geolocation;
 
     return new Promise((resolve, reject) => {
-        geolocation.getCurrentPosition(async (pos) => {
+        geolocation.getCurrentPosition((pos) => {
             let lat = pos.coords.latitude;
             let lon = pos.coords.longitude;
+            console.log(lat, lon)
             resolve({
                 lat,
                 lon
@@ -58,40 +60,42 @@ function geoLocation() {
     })
 }
 
+//информация и часовом поясе и местонахождении пользователя
 async function getLocalTIme() {
+  console.log(await geoLocation())
     const {
         lat,
         lon
     } = await geoLocation();
+   
+    
     const res = await fetch(`https://api.ipgeolocation.io/timezone?apiKey=b8d35f2579674b97ad705cd583b1de1c&lat=${lat}&long=${lon}`)
+   
     return await res.json()
 }
 
-function foo() {
 
-}
-getLocalTIme().then((data) => {
-    let tz = data.timezone_offset
-    console.log(data)
-
-})
-
-
-const parseTimes = (times) => {
+const parseTimes = async (times) => {
+   
+    let city =  0;
+ 
     return times
         .trim()
         .split("\n")
         .map((str) => {
-            if (0) {
-                return moment(str.trim()).utcOffset(tz)._d;
+
+            if (city) {
+                return moment(str.trim()).utcOffset(city.timezone_offset)._d;
             } else {
                 return moment(str.trim())._d;
             }
         });
 };
+
 //получаем дату
 const datesAB = parseTimes(timesAB);
 const datesBA = parseTimes(timesBA);
+
 
 
 
@@ -108,13 +112,15 @@ const oo = (n) => {
 
 //создаем options для ab ba
 const createOptions = (datesArray, className) => {
-    datesArray.forEach((time) => {
-        const option = document.createElement("option");
-        option.classList.add(`${className}__option`);
-        option.value = time.getTime();
-        option.innerText = `${time.getHours()}:${oo(time.getMinutes())}`;
-        el[className].appendChild(option);
-    });
+    datesArray.then((data) => {
+        data.forEach((time) => {
+            const option = document.createElement("option");
+            option.classList.add(`${className}__option`);
+            option.value = time.getTime();
+            option.innerText = `${time.getHours()}:${oo(time.getMinutes())}`;
+            el[className].appendChild(option);
+        });
+    })
 };
 
 createOptions(datesAB, "timesAB");
