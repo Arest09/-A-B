@@ -69,7 +69,6 @@ function geoLocation() {
 
 //информация и часовом поясе и местонахождении пользователя
 async function getLocalTIme() {
-    console.log(await geoLocation())
     const {
         lat,
         lon
@@ -78,8 +77,7 @@ async function getLocalTIme() {
     if (lat || lon) {
         const res = await fetch(`https://api.ipgeolocation.io/timezone?apiKey=b8d35f2579674b97ad705cd583b1de1c&lat=${lat}&long=${lon}`)
         return await res.json()
-    } 
-    else {
+    } else {
         return 0;
     }
 
@@ -89,7 +87,9 @@ async function getLocalTIme() {
 const parseTimes = async (times) => {
 
     let city = await getLocalTIme();
-
+    if (city) {
+        document.querySelector('.city').textContent = `your city: ${city.timezone.split('/')[1]}`
+    }
     let tz = city.timezone_offset;
 
     return times
@@ -97,7 +97,7 @@ const parseTimes = async (times) => {
         .split("\n")
         .map((str) => {
 
-            if (city) {
+            if (city) {// часовой пояс - тот,который у пользователя
                 return moment(str.trim()).utcOffset(0 - (3 - tz))._d;
             } else {
                 return moment(str.trim())._d;
@@ -108,7 +108,6 @@ const parseTimes = async (times) => {
 //получаем дату
 const datesAB = parseTimes(timesAB);
 const datesBA = parseTimes(timesBA);
-
 
 
 

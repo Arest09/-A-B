@@ -53,7 +53,9 @@
             justify-content: space-around;
         }
     }
-
+    option:disabled{
+        display: none;
+      }
     .bucket_btn {
         padding: 4px 4px;
         font-size: 10px;

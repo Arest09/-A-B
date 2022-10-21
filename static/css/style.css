@@ -241,6 +241,12 @@ input {
   animation: appear 1.3s;
 }
 
+.city {
+  text-align-last: left;
+  color: #1344a5;
+  animation: info-appear 0.5s;
+}
+
 @media (max-width: 805px) {
   .container {
     flex-direction: column;
@@ -283,6 +289,9 @@ input {
     align-items: center;
     min-height: 160px;
     justify-content: space-around;
+  }
+  option:disabled {
+    display: none;
   }
   .bucket_btn {
     padding: 4px 4px;
