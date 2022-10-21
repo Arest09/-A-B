@@ -44,48 +44,61 @@ const timesBA = `
 
 /////получение геопозиции пользователя
 function geoLocation() {
- 
+
     let geolocation = navigator.geolocation;
 
     return new Promise((resolve, reject) => {
         geolocation.getCurrentPosition((pos) => {
-            let lat = pos.coords.latitude;
-            let lon = pos.coords.longitude;
-            console.log(lat, lon)
-            resolve({
-                lat,
-                lon
-            })
+            if (pos) {
+                let lat = pos.coords.latitude;
+                let lon = pos.coords.longitude;
+                resolve({
+                    lat,
+                    lon
+                })
+            }
+
+
+        }, (err) => {
+            resolve(err)
         })
+
     })
 }
 
+
 //информация и часовом поясе и местонахождении пользователя
 async function getLocalTIme() {
-  console.log(await geoLocation())
+    console.log(await geoLocation())
     const {
         lat,
         lon
     } = await geoLocation();
-   
-    
-    const res = await fetch(`https://api.ipgeolocation.io/timezone?apiKey=b8d35f2579674b97ad705cd583b1de1c&lat=${lat}&long=${lon}`)
-   
-    return await res.json()
+
+    if (lat || lon) {
+        const res = await fetch(`https://api.ipgeolocation.io/timezone?apiKey=b8d35f2579674b97ad705cd583b1de1c&lat=${lat}&long=${lon}`)
+        return await res.json()
+    } 
+    else {
+        return 0;
+    }
+
 }
 
 
 const parseTimes = async (times) => {
-   
-    let city =  0;
- 
+
+    let city = await getLocalTIme();
+
+    let tz = city.timezone_offset;
+
     return times
         .trim()
         .split("\n")
         .map((str) => {
 
             if (city) {
-                return moment(str.trim()).utcOffset(city.timezone_offset)._d;
+                return moment(str.trim()).utcOffset(0 - (3 - tz))._d;
             } else {
                 return moment(str.trim())._d;
             }
